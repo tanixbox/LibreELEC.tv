@@ -263,6 +263,15 @@ EOF
     mcopy $RELEASE_DIR/target/KERNEL.md5 "::/$KERNEL_NAME.md5"
     mcopy $RELEASE_DIR/target/SYSTEM.md5 ::/SYSTEM.md5
 
+    # generate autoscript files for Amlogic devices and add them to SD card image
+    for src in $INSTALL_SRC_DIR/*autoscript.src ; do
+      if [ -e "$src" ] ; then
+        AUTOSCRIPT_DEST="$LE_TMP/$(basename $src .src)"
+        $TOOLCHAIN/bin/mkimage -A $TARGET_KERNEL_ARCH -O linux -T script -C none -d "$src" "$AUTOSCR_DEST" > /dev/null
+        mcopy "$AUTOSCR_DEST" ::
+      fi
+    done
+
 elif [ "$BOOTLOADER" = "u-boot" ]; then
   echo "to make an image using u-boot UBOOT_SYSTEM must be set"
   cleanup
