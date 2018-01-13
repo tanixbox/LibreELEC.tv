@@ -39,6 +39,10 @@ PKG_LONGDESC="gpu-aml: Linux drivers for Mali GPUs found in Amlogic Meson SoCs"
 PKG_TOOLCHAIN="manual"
 PKG_IS_KERNEL_PKG="yes"
 
+pre_configure_target() {
+  sed -e "s|USING_GPU_UTILIZATION=1|USING_GPU_UTILIZATION=0|g; s|shell date|shell date -R|g" -i $PKG_BUILD/mali/Kbuild
+}
+
 make_target() {
   if [ "$MESON_FAMILY" = "gxm" ] ; then
     LDFLAGS="" make -C $(kernel_path) M=$PKG_BUILD/t83x/kernel/drivers/gpu/arm/midgard \
