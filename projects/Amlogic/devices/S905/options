@@ -1,4 +1,1 @@
-  # additional packages to install:
-  # Space separated list is supported,
-  # e.g. ADDITIONAL_PACKAGES="PACKAGE1 PACKAGE2"
-    ADDITIONAL_PACKAGES="u-boot-tools-aml"
+# empty to keep device folder present in Git
